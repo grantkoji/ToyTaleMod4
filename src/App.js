@@ -40,7 +40,13 @@ handleClick = () => {
 // this.setState({toys: newToys})
   componentDidMount(){
     this.fetchToys()
-  }
+  }  
+
+  // getToys = () => {
+  //   this.fetchToys()
+  // }
+
+  // <button onClick={this.getToys}>GetToys</button>
 
   addNewToy = (newToy) => {
     this.setState({ toys: [...this.state.toys, newToy]})
