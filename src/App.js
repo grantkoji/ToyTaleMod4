@@ -17,6 +17,7 @@ state = {
 
 
 
+
 handleClick = () => {
   let newBoolean = !this.state.displayForm
   this.setState({
@@ -53,10 +54,10 @@ handleClick = () => {
 
 
 
-addLike = (toyData) => {
+addLike = (id) => {
   let newToys = this.state.toys.map(toy => {
-    if (toy.id === toyData.id) {
-      return {...toy, likes: toyData.likes}
+    if (toy.id === id) {
+      return {...toy, likes: toy.likes + 1}
   //     could also do return toyData 
   // {...instance, existingKeyImUpdating: newValueOfThatKey}
     } else {

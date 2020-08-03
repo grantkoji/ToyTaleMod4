@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 class ToyCard extends Component {
+
+  state={
+    showFront: true
+  }
 //   this.clickLike
 //  this.props.addLike
  
@@ -12,11 +16,11 @@ class ToyCard extends Component {
         "Content-Type": 'application/json',
         Accept: 'application/json'
       },
-      body: JSON.stringify({ likes })
+      body: JSON.stringify({ likes: likes })
     })
     .then(res=>res.json())
     .then(likesData => {
-      this.props.addLike(likesData)
+      this.props.addLike(likesData.id)
     })
 }
 
@@ -30,21 +34,51 @@ donateToy = () => {
   })
   .then(data => this.props.removeToy(this.props.id))
 }
+
+    renderFront = () => {
+      return (
+        <>
+          <h2>{this.props.name}</h2>
+          <img src={this.props.image} alt='toy-name-here' className="toy-avatar" />
+           <p>Likes: {this.props.likes} </p>
+        </>
+      )
+    }
+
+    renderBack = () => {
+      return (
+        <>
+        <button className="like-btn" onClick={this.clickLike}>Like {'<3'}</button>
+        <button className="del-btn" onClick={this.donateToy}>Donate to GoodWill</button>
+        </>
+      )
+    }
+
+      // toggleFrontAndBack = () => {
+    //   let newShowFront = !this.state.showFront
+    //   this.setState({showFront: newShowFront})
+   
+    // }
+
+
+    toggleFrontAndBack = () => {
+      this.setState(prevState => ({showFront: !prevState.showFront}))
+  
+    }
   
   render() {
 
   
     return (
-      <div className="card">
-        <h2>{this.props.beef}</h2>
-        <img src={this.props.image} alt='toy-name-here' className="toy-avatar" />
-        <p>Likes: {this.props.likes} </p>
-        <button className="like-btn" onClick={this.clickLike}>Like {'<3'}</button>
-        <button className="del-btn" onClick={this.donateToy}>Donate to GoodWill</button>
+      <div className="card" onClick={this.toggleFrontAndBack}>
+        {this.state.showFront
+        ? this.renderFront()
+        : this.renderBack()}
+       
       </div>
     );
+  
   }
-
 }
 
 export default ToyCard;
